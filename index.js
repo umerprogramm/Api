@@ -2,48 +2,72 @@ import  cheerio  from 'cheerio'
 import request   from 'request'
 import express from 'express'
 const app = express()
-const port = 3000
+app.use(express.json())
+
+
+
+const pages=[
+  {
+    url : "https://davidwalsh.name/",
+    name : "davidwalsh",
+    class : "preview"
+  },
+  {
+    url : "https://myprogrammingblog.com/",
+    name : "myprogrammingblog",
+    class : "entry-title-index"
+  },
+]
 
 
 
 
+const data = []
+  pages.map(element => {
 
-
-
-
-
-const arr = []
-  request('https://myprogrammingblog.com/', function (error, response, body) {
+  request(element.url, function (error, response, body) {
     
-    const $ =cheerio.load(body)
-    $('.entry-title-index').each(function(index){
+    const $ = cheerio.load(body)
+     console.log(element.class)
+   $(`.${element.class}`).each(function(id){
       
 
-      const text = $(this).text()
+
+      const title = $(this).text()
        const url = $(this).find('a').attr('href')
        
-       arr.push({
-         index,
-         title : text,
+       data.push({
+         title,
          url
         })
       
         
         
       })
+
+        
+        
+      
     });
+    
+  });
+  
+
     app.get('/', (req, res, next) => {
       res.send('Wellcome to my API plase go to  /data to grap the data 😊');
     });
     app.get('/data', (req, res, next) => {
-      res.send(arr);
+      res.send(arr2);
     });
 
 
-    
-    
+    app.post('/info', (req, res, next) => {
+      console.log(req.body);
+    });
 
 
 
 
-app.listen(port, () => console.log(`App listening at http://localhost:${port}`))
+
+
+app.listen(3000, () => console.log(`App listening at http://localhost:${3000}`))

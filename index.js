@@ -40,7 +40,6 @@ const data = []
   request(element.url, function (error, response, body) {
     
     const $ = cheerio.load(body)
-     console.log(element.class)
    $(`.${element.class}`).each(function(id){
       
 

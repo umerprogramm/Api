@@ -9,14 +9,26 @@ app.use(express.json())
 const pages=[
   {
     url : "https://davidwalsh.name/",
-    name : "davidwalsh",
-    class : "preview"
+    class : "preview",
   },
   {
     url : "https://myprogrammingblog.com/",
-    name : "myprogrammingblog",
-    class : "entry-title-index"
+    class : "entry-title-index",
   },
+  {
+    url : "https://erikbern.com/",
+    class : "post-title",
+  },
+  {
+    url : "https://css-tricks.com/",
+    class : "article-publication-meta",
+  },
+    {
+    url : "https://www.geeksforgeeks.org/category/guestblogs//",
+    class : "head",
+  },
+
+
 ]
 
 
@@ -38,7 +50,7 @@ const data = []
        
        data.push({
          title,
-         url
+         url : url
         })
       
         
@@ -57,7 +69,7 @@ const data = []
       res.send('Wellcome to my API plase go to  /data to grap the data 😊');
     });
     app.get('/data', (req, res, next) => {
-      res.send(arr2);
+      res.send(data);
     });
 
 
